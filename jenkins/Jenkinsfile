@@ -14,7 +14,9 @@ pipeline {
         }
         stage('Zip CodeDeploy') {
             steps {
-                sh '/bin/rm AlfrescoCodeDeploy.zip'
+                catchError { 
+                    sh '/bin/rm AlfrescoCodeDeploy.zip' 
+                }
                 sh 'zip ./AlfrescoCodeDeploy.zip CodeDeploy'
             }
         }   
