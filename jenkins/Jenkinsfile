@@ -1,24 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Build and Test') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Start') {
-            steps {
-                sh './run.sh start &'
-            }
-        }
-        stage("Wait 5 minutes for Alfresco to start up") {
-            steps {
-                build('Common Jobs/Wait for 5 minutes')  
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn verify -pl integration-tests'
+                sh './run.sh build_test'
             }
             post {
                 always {
@@ -26,11 +11,6 @@ pipeline {
                 }
             }
         }
-        stage('Stop') {
-            steps {
-                sh './run.sh stop &'
-            }
-        }        
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'

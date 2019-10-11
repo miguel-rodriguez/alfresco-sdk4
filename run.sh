@@ -66,6 +66,9 @@ test() {
 }
 
 case "$1" in
+  build)
+    build
+    ;;
   build_start)
     down
     build
