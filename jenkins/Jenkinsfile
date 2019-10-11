@@ -8,7 +8,8 @@ pipeline {
         }
         stage('Save artifacts') {
             steps {
-                sh 'mkdir artifacts'
+                sh '/bin/rm -rf artifacts'
+                sh '/bin/mkdir artifacts'
                 sh 'cp my-all-in-one-platform-jar/target/my-all-in-one-platform-jar-1.0-SNAPSHOT.jar artifacts/'
                 sh 'cp my-all-in-one-share-jar/target/my-all-in-one-share-jar-1.0-SNAPSHOT.jar artifacts/'
             }
