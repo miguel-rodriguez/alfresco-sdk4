@@ -26,6 +26,11 @@ pipeline {
                 }
             }
         }
+        stage('Stop') {
+            steps {
+                sh './run.sh stop &'
+            }
+        }        
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
