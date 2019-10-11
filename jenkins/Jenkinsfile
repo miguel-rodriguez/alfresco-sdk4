@@ -8,7 +8,12 @@ pipeline {
         }
         stage('Start') {
             steps {
-                sh './run.sh start'
+                sh './run.sh start &'
+            }
+        }
+        stage("Wait 5 minutes for Alfresco to start up") {
+            steps {
+                build('Common Jobs/Wait for 5 minutes')  
             }
         }
         stage('Test') {
