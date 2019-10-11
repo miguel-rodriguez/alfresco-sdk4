@@ -6,6 +6,11 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
+        stage('Start') {
+            steps {
+                sh './run.sh start'
+            }
+        }
         stage('Test') {
             steps {
                 sh 'mvn verify -pl integration-tests'
