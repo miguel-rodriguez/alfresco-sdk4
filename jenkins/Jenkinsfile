@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clear older deployments') {
             steps {
-                sh '/bin/rm -rf ./CodeDeploy'
+                sh '/bin/rm -rf ./alfresco-sdk4'
             }
         }
         stage('Build and Test') {
