@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Clear older deployments') {
             steps {
+                sh 'pwd && ls -l'
                 sh '/bin/rm -rf ./alfresco-sdk4'
             }
         }
@@ -13,7 +14,7 @@ pipeline {
         }
         stage('Get artifacts') {
             steps {
-                sh 'wget "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy"'
+                sh 'wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy"'
                 sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"'
                 sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"'
             }
