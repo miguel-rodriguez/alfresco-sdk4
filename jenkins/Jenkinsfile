@@ -22,7 +22,7 @@ pipeline {
                 catchError { 
                     sh '/bin/rm AlfrescoCodeDeploy.zip' 
                 }
-                sh 'zip ./AlfrescoCodeDeploy.zip CodeDeploy'
+                sh 'zip -r ./AlfrescoCodeDeploy.zip CodeDeploy'
             }
         }   
          stage('Upload to S3') {
