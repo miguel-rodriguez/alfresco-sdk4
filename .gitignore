@@ -1,10 +1,5 @@
 **/target/**
-integration-tests/target/test-classes/com/alfresco/support/platformsample/CustomContentModelIT.class
-integration-tests/target/test-classes/com/alfresco/support/platformsample/DemoComponentIT.class
-integration-tests/target/test-classes/com/alfresco/support/platformsample/HelloWorldWebScriptIT.class
-my-all-in-one-platform-jar/target/classes/com/alfresco/support/platformsample/Demo.class
-my-all-in-one-platform-jar/target/classes/com/alfresco/support/platformsample/DemoComponent.class
-my-all-in-one-platform-jar/target/classes/com/alfresco/support/platformsample/HelloWorldWebScript.class
-my-all-in-one-platform-jar/target/test-classes/com/alfresco/support/platformsample/HelloWorldWebScriptControllerTest.class
-my-all-in-one-share-jar/target/my-all-in-one-share-jar-1.0-SNAPSHOT.jar
-my-all-in-one-share-jar/target/maven-archiver/pom.properties
+.idea/
+.vscode/
+.settings
+*log

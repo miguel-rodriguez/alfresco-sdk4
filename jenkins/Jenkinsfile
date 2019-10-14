@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Save artifacts') {
             steps {
-                sh 'cp my-all-in-one-platform-jar/target/my-all-in-one-platform-jar-1.0-SNAPSHOT.jar CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/'
-                sh 'cp my-all-in-one-share-jar/target/my-all-in-one-share-jar-1.0-SNAPSHOT.jar CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/'
+                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"'
+                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"'
             }
         }
         stage('Zip CodeDeploy') {
