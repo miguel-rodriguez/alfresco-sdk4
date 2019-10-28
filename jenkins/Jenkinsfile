@@ -17,10 +17,12 @@ pipeline {
         }
         stage('Zip Repo CodeDeploy') {
             steps {
-                catchError { 
-                    sh '/bin/rm CodeDeploy/alfresco-repo-code-deploy/AlfrescoRepoCodeDeploy.zip' 
-                    sh 'exit 0'
-                }
+                sh '''
+                    if [ -e ./CodeDeploy/alfresco-repo-code-deploy/AlfrescoRepoCodeDeploy.zip ]
+                    then
+                        /bin/rm ./CodeDeploy/alfresco-repo-code-deploy/AlfrescoRepoCodeDeploy.zip
+                    fi
+                ''' 
                 sh '''
                     cd CodeDeploy/alfresco-repo-code-deploy/
                     zip -r ./AlfrescoRepoCodeDeploy.zip *
@@ -54,10 +56,12 @@ pipeline {
         }
         stage('Zip Solr CodeDeploy') {
             steps {
-                catchError { 
-                    sh '/bin/rm CodeDeploy/alfresco-solr-code-deploy/AlfrescoSolrCodeDeploy.zip' 
-                    sh 'exit 0'
-                }
+                sh '''
+                    if [ -e ./CodeDeploy/alfresco-solr-code-deploy/AlfrescoSolrCodeDeploy.zip ]
+                    then
+                        /bin/rm ./CodeDeploy/alfresco-solr-code-deploy/AlfrescoSolrCodeDeploy.zip
+                    fi
+                '''                
                 sh '''
                     cd CodeDeploy/alfresco-solr-code-deploy/
                     zip -r ./AlfrescoSolrCodeDeploy.zip *
