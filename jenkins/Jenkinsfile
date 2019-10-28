@@ -16,15 +16,15 @@ pipeline {
         stage('Zip Repo CodeDeploy') {
             steps {
                 catchError { 
-                    sh '/bin/rm AlfrescoRepoCodeDeploy.zip' 
+                    sh '/bin/rm CodeDeploy/AlfrescoRepoCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'zip -r ./AlfrescoRepoCodeDeploy.zip alfresco-repo-code-deploy'
+                sh 'cd CodeDeploy && zip -r ./AlfrescoRepoCodeDeploy.zip alfresco-repo-code-deploy'
             }
         }   
          stage('Upload Repo Zip to S3') {
             steps {
-                sh 'aws s3 cp ./AlfrescoRepoCodeDeploy.zip s3://mr-acs-61-code-deploy'
+                sh 'aws s3 cp ./CodeDeploy/AlfrescoRepoCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
         }
         stage('Get solr artifacts') {
@@ -37,15 +37,15 @@ pipeline {
         stage('Zip Solr CodeDeploy') {
             steps {
                 catchError { 
-                    sh '/bin/rm AlfrescoSolrCodeDeploy.zip' 
+                    sh '/bin/rm CodeDeploy/AlfrescoSolrCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'zip -r ./AlfrescoSolrCodeDeploy.zip alfresco-solr-code-deploy'
+                sh 'cd CodeDeploy && zip -r ./AlfrescoSolrCodeDeploy.zip alfresco-solr-code-deploy'
             }
         }   
          stage('Upload Solr Zip to S3') {
             steps {
-                sh 'aws s3 cp ./AlfrescoSolrCodeDeploy.zip s3://mr-acs-61-code-deploy'
+                sh 'aws s3 cp ./CodeDeploy/AlfrescoSolrCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
         }
     }
