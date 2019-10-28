@@ -17,6 +17,7 @@ pipeline {
             steps {
                 catchError { 
                     sh '/bin/rm AlfrescoRepoCodeDeploy.zip' 
+                    sh 'exit 0'
                 }
                 sh 'zip -r ./AlfrescoRepoCodeDeploy.zip alfresco-repo-code-deploy'
             }
@@ -37,6 +38,7 @@ pipeline {
             steps {
                 catchError { 
                     sh '/bin/rm AlfrescoSolrCodeDeploy.zip' 
+                    sh 'exit 0'
                 }
                 sh 'zip -r ./AlfrescoSolrCodeDeploy.zip alfresco-solr-code-deploy'
             }

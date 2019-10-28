@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="my-all-in-one-share-jar" />
         <module name="my-all-in-one-platform-docker" />
         <module name="my-all-in-one-platform-jar" />
-        <module name="my-all-in-one-share-jar" />
         <module name="integration-tests" />
         <module name="my-all-in-one-share-docker" />
       </profile>
