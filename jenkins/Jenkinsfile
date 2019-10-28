@@ -25,12 +25,6 @@ pipeline {
             steps {
                 sh 'aws s3 cp ./AlfrescoCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
-        }            
-        stage('Clean up') {
-            steps {
-                sh 'mvn clean'
-                sh '/bin/rm -rf CodeDeploy'
-            }
         }
     }
 }
