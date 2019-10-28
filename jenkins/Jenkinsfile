@@ -27,11 +27,22 @@ pipeline {
                 '''
             }
         }   
-         stage('Upload Repo Zip to S3') {
+        stage('Upload Repo Zip to S3') {
             steps {
                 sh 'aws s3 cp ./CodeDeploy/alfresco-repo-code-deploy/AlfrescoRepoCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
         }
+        stage('Execute Repo Artifacts Deployment') {
+            steps {
+                sh '''
+                    aws --region eu-west-2 deploy create-deployment \
+                        --application-name mr-acs-code-deploy \
+                        --deployment-config-name CodeDeployDefault.OneAtATime \
+                        --deployment-group-name mr-acs-code-deploy-repo-group \
+                        --s3-location bucket=mr-acs-61-code-deploy,bundleType=zip,key=AlfrescoRepoCodeDeploy.zip                
+                '''
+            }
+        }        
         stage('Get solr artifacts') {
             steps {
                 sh '''
@@ -53,9 +64,20 @@ pipeline {
                 '''
             }
         }   
-         stage('Upload Solr Zip to S3') {
+        stage('Upload Solr Zip to S3') {
             steps {
                 sh 'aws s3 cp ./CodeDeploy/alfresco-solr-code-deploy/AlfrescoSolrCodeDeploy.zip s3://mr-acs-61-code-deploy'
+            }
+        }
+        stage('Execute Solr Artifacts Deployment') {
+            steps {
+                sh '''
+                    aws --region eu-west-2 deploy create-deployment \
+                        --application-name mr-acs-code-deploy \
+                        --deployment-config-name CodeDeployDefault.OneAtATime \
+                        --deployment-group-name mr-acs-code-deploy-solr-group \
+                        --s3-location bucket=mr-acs-61-code-deploy,bundleType=zip,key=AlfrescoSolrCodeDeploy.zip                
+                '''
             }
         }
     }
