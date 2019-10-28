@@ -19,7 +19,7 @@ pipeline {
                     sh '/bin/rm CodeDeploy/AlfrescoRepoCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'cd CodeDeploy/alfresco-repo-code-deploy && zip -r ./AlfrescoRepoCodeDeploy.zip *y'
+                sh 'cd CodeDeploy/alfresco-repo-code-deploy && zip -r ./AlfrescoRepoCodeDeploy.zip *'
             }
         }   
          stage('Upload Repo Zip to S3') {
