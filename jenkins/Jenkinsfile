@@ -8,18 +8,23 @@ pipeline {
         }
         stage('Get repo artifacts') {
             steps {
-                sh 'wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy/alfresco-repo-code-deploy"'
-                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"'
-                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"'
+                sh '''
+                    wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy/alfresco-repo-code-deploy"
+                    wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"
+                    wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"
+                '''
             }
         }
         stage('Zip Repo CodeDeploy') {
             steps {
                 catchError { 
-                    sh '/bin/rm CodeDeploy/AlfrescoRepoCodeDeploy.zip' 
+                    sh '/bin/rm CodeDeploy/alfresco-repo-code-deploy/AlfrescoRepoCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'cd CodeDeploy/alfresco-repo-code-deploy && zip -r ./AlfrescoRepoCodeDeploy.zip *'
+                sh '''
+                    cd CodeDeploy/alfresco-repo-code-deploy/
+                    zip -r ./AlfrescoRepoCodeDeploy.zip *
+                '''
             }
         }   
          stage('Upload Repo Zip to S3') {
@@ -29,18 +34,23 @@ pipeline {
         }
         stage('Get solr artifacts') {
             steps {
-                sh 'wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy/alfresco-solr-code-deploy"'
-                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"'
-                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"'
+                sh '''
+                    wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy/alfresco-solr-code-deploy"
+                    wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"
+                    wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"
+                '''
             }
         }
         stage('Zip Solr CodeDeploy') {
             steps {
                 catchError { 
-                    sh '/bin/rm CodeDeploy/AlfrescoSolrCodeDeploy.zip' 
+                    sh '/bin/rm CodeDeploy/alfresco-solr-code-deploy/AlfrescoSolrCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'cd CodeDeploy/alfresco-solr-code-deploy && zip -r ./AlfrescoSolrCodeDeploy.zip *'
+                sh '''
+                    cd CodeDeploy/alfresco-solr-code-deploy/
+                    zip -r ./AlfrescoSolrCodeDeploy.zip *
+                '''
             }
         }   
          stage('Upload Solr Zip to S3') {
