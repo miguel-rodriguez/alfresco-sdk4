@@ -6,24 +6,44 @@ pipeline {
                 sh './run.sh build_test'
             }
         }
-        stage('Get artifacts') {
+        stage('Get repo artifacts') {
             steps {
-                sh 'wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy"'
+                sh 'wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy/alfresco-repo-code-deploy"'
                 sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"'
                 sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"'
             }
         }
-        stage('Zip CodeDeploy') {
+        stage('Zip Repo CodeDeploy') {
             steps {
                 catchError { 
-                    sh '/bin/rm AlfrescoCodeDeploy.zip' 
+                    sh '/bin/rm AlfrescoRepoCodeDeploy.zip' 
                 }
-                sh 'zip -r ./AlfrescoCodeDeploy.zip CodeDeploy'
+                sh 'zip -r ./AlfrescoRepoCodeDeploy.zip alfresco-repo-code-deploy'
             }
         }   
-         stage('Upload to S3') {
+         stage('Upload Repo Zip to S3') {
             steps {
-                sh 'aws s3 cp ./AlfrescoCodeDeploy.zip s3://mr-acs-61-code-deploy'
+                sh 'aws s3 cp ./AlfrescoRepoCodeDeploy.zip s3://mr-acs-61-code-deploy'
+            }
+        }
+        stage('Get solr artifacts') {
+            steps {
+                sh 'wget -r --no-parent "https://github.com/miguel-rodriguez/alfresco-sdk4/tree/master/CodeDeploy/alfresco-solr-code-deploy"'
+                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-platform-jar/1.0/my-all-in-one-platform-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/platform_modules/"'
+                sh 'wget "http://localhost:8081/artifactory/libs-release-local/com/alfresco/my-all-in-one-share-jar/1.0/my-all-in-one-share-jar-1.0.jar"  -P "CodeDeploy/alfresco-repo-code-deploy/deployment/code-deploy-acs/share_modules/"'
+            }
+        }
+        stage('Zip Solr CodeDeploy') {
+            steps {
+                catchError { 
+                    sh '/bin/rm AlfrescoSolrCodeDeploy.zip' 
+                }
+                sh 'zip -r ./AlfrescoSolrCodeDeploy.zip alfresco-solr-code-deploy'
+            }
+        }   
+         stage('Upload Solr Zip to S3') {
+            steps {
+                sh 'aws s3 cp ./AlfrescoSolrCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
         }
     }
