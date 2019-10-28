@@ -19,7 +19,7 @@ pipeline {
                     sh '/bin/rm CodeDeploy/AlfrescoRepoCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'cd CodeDeploy && zip -r ./AlfrescoRepoCodeDeploy.zip alfresco-repo-code-deploy'
+                sh 'cd CodeDeploy/alfresco-repo-code-deploy && zip -r ./AlfrescoRepoCodeDeploy.zip *y'
             }
         }   
          stage('Upload Repo Zip to S3') {
@@ -40,7 +40,7 @@ pipeline {
                     sh '/bin/rm CodeDeploy/AlfrescoSolrCodeDeploy.zip' 
                     sh 'exit 0'
                 }
-                sh 'cd CodeDeploy && zip -r ./AlfrescoSolrCodeDeploy.zip alfresco-solr-code-deploy'
+                sh 'cd CodeDeploy/alfresco-solr-code-deploy && zip -r ./AlfrescoSolrCodeDeploy.zip *'
             }
         }   
          stage('Upload Solr Zip to S3') {
