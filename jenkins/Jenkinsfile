@@ -29,7 +29,7 @@ pipeline {
         }   
          stage('Upload Repo Zip to S3') {
             steps {
-                sh 'aws s3 cp ./CodeDeploy/AlfrescoRepoCodeDeploy.zip s3://mr-acs-61-code-deploy'
+                sh 'aws s3 cp ./CodeDeploy/alfresco-repo-code-deploy/AlfrescoRepoCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
         }
         stage('Get solr artifacts') {
@@ -55,7 +55,7 @@ pipeline {
         }   
          stage('Upload Solr Zip to S3') {
             steps {
-                sh 'aws s3 cp ./CodeDeploy/AlfrescoSolrCodeDeploy.zip s3://mr-acs-61-code-deploy'
+                sh 'aws s3 cp ./CodeDeploy/alfresco-solr-code-deploy/AlfrescoSolrCodeDeploy.zip s3://mr-acs-61-code-deploy'
             }
         }
     }
